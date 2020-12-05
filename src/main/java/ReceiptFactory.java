@@ -2,12 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReceiptFactory {
-    public Receipt createReceipt(String shopName, String tag, String pathToScan, List<Purchase> purchases) {
-        List<Purchase> purchToInput = new ArrayList<Purchase>();
+    ReceiptRepository rep;
 
-
-
-        ReceiptRepository.add(newr);
+    public Receipt createReceipt(String shopName, List<String> tags, String pathToScan, List<Purchase> purchases, String scan) {
+        Receipt newr = new Receipt(shopName, tags, purchases, scan);
+        rep.add(newr);
         return newr;
     }
 }
