@@ -11,4 +11,12 @@ public class ReceiptRepository {
         receipts.add(r);
         return receipts.add(r);
     }
+
+    public double getTotalSpendings() {
+        double spendings = 0;
+        for (Receipt r : receipts) {
+            spendings += r.getTotalPrice();
+        }
+        return spendings;
+    }
 }
