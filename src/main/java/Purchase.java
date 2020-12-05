@@ -9,6 +9,9 @@ public class Purchase implements Serializable {
         if (price <= 0) {
             throw new NumberFormatException("Invalid price!");
         }
+        if (quantity <= 0) {
+            throw new NumberFormatException("Invalid quantity!");
+        }
         this.name = name;
         this.price = price;
         this.quantity = quantity;
