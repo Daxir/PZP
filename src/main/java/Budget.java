@@ -1,8 +1,10 @@
-public class Budget {
+import java.io.Serializable;
+
+public class Budget implements Observer, Serializable {
     private double currentSpendings;
-    private double monthlyBudget;
+    private final double monthlyBudget;
     private double remainingSpendings;
-    private ReceiptRepository receiptRep;
+    private final ReceiptRepository receiptRep;
 
     public Budget(double monthlyBudget, ReceiptRepository receiptRep) {
         this.monthlyBudget = monthlyBudget;
@@ -23,4 +25,8 @@ public class Budget {
         return remainingSpendings;
     }
 
+    public void update() {
+        currentSpendings = receiptRep.getTotalSpendings();
+        remainingSpendings = monthlyBudget - receiptRep.getTotalSpendings();
+    }
 }
