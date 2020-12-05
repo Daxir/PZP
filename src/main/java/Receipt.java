@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.List;
 
-public class Receipt {
+public class Receipt implements Serializable {
     private final String ShopName;
     private final List<String> tags;
     private final List<Purchase> purchases;
