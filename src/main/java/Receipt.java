@@ -1,7 +1,6 @@
 import java.util.List;
 
 public class Receipt {
-    private double TotalPrice;
     private final String ShopName;
     private final List<String> tags;
     private final List<Purchase> purchases;
@@ -19,7 +18,11 @@ public class Receipt {
     }
 
     public double getTotalPrice() {
-        return TotalPrice;
+        double totalPrice = 0;
+        for (Purchase p: getPurchases()) {
+            totalPrice += p.getTotalPurchaseValue();
+        }
+        return totalPrice;
     }
 
     public String getShopName() {
