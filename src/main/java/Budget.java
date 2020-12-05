@@ -26,7 +26,7 @@ public class Budget implements Observer, Serializable {
     }
 
     public void update() {
-        currentSpendings += receiptRep.getTotalSpendings();
-        remainingSpendings = monthlyBudget - currentSpendings;
+        currentSpendings = receiptRep.getTotalSpendings();
+        remainingSpendings = getMonthlyBudget() - getCurrentSpendings();
     }
 }
