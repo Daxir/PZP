@@ -1,11 +1,10 @@
-import jdk.internal.loader.AbstractClassLoaderValue;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReceiptRepository implements Subject {
+public class ReceiptRepository implements Subject, Serializable {
     private List<Receipt> receipts;
-    private final List<Observer> observers = new ArrayList<Observer>();
+    private final List<Observer> observers = new ArrayList<>();
 
     public List<Receipt> getRepository() {
         return receipts;
