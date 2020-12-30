@@ -11,6 +11,6 @@ public class Controller {
 
     public void zniknijbaton() {
         System.out.println("welcome");
-        ((Pane) this.batonktoryznika.getParent()).getChildren().remove(batonktoryznika);
+        ((Pane) this.batonktoryznika.getParent()).getChildren().remove(batonktoryznika); //usuń.mnie();
     }
 }
