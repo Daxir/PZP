@@ -12,10 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Controller implements Initializable {
     public TextArea infoTextArea;
@@ -55,8 +52,10 @@ public class Controller implements Initializable {
 
     private void updateFromRepository() {
         for (var e : receiptRepository.getAll()) {
-            //zrobic tak zeby sie nie dodawaly duplikaty
-            receiptList.getItems().add(e);
+            var set = new HashSet<>(receiptList.getItems());
+            if (set.add(e)) {
+                receiptList.getItems().add(e);
+            }
         }
     }
 
