@@ -159,6 +159,7 @@ public class Controller implements Initializable {
         receiptRepository.remove(receiptList.getSelectionModel().getSelectedItem());
         receiptList.getItems().remove(receiptList.getSelectionModel().getSelectedItem());
         infoTextArea.clear();
+        imageView.setImage(null);
     }
 
 }
