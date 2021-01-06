@@ -9,8 +9,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
-      <Button fx:id="batonktoryznika" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#zniknijbaton" prefHeight="573.0" prefWidth="768.0" text="kliknij aby zniknac baton" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
       <ImageView fx:id="imageView" fitHeight="325.0" fitWidth="275.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <ListView layoutX="14.0" layoutY="377.0" prefHeight="209.0" prefWidth="275.0" />
+      <Button layoutX="317.0" layoutY="373.0" mnemonicParsing="false" onAction="#openAddWindow" prefHeight="194.0" prefWidth="174.0" text="Add" />
+      <Button layoutX="581.0" layoutY="373.0" mnemonicParsing="false" prefHeight="194.0" prefWidth="174.0" text="Delete" />
+      <TextField layoutX="14.0" layoutY="347.0" prefHeight="25.0" prefWidth="275.0" promptText="Search for a receipt" />
       <ListView fx:id="receiptList" layoutX="14.0" layoutY="377.0" prefHeight="209.0" prefWidth="275.0" />
       <Button fx:id="addButton" layoutX="317.0" layoutY="373.0" mnemonicParsing="false" prefHeight="194.0" prefWidth="174.0" text="Add" />
       <Button fx:id="deleteButton" layoutX="581.0" layoutY="373.0" mnemonicParsing="false" prefHeight="194.0" prefWidth="174.0" text="Delete" />
