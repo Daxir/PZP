@@ -1,21 +1,11 @@
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -35,7 +25,7 @@ public class Controller implements Initializable {
     public TextField receiptSearch;
     public TextField password;
     public Button loginButton;
-    private ReceiptRepository receiptRepository;
+    private final ReceiptRepository receiptRepository  = Global.receiptRepository;
     public ImageView imageView;
     public TextField shopName;
     public Button chooseScanButton;
@@ -56,31 +46,28 @@ public class Controller implements Initializable {
             Stage stage = new Stage();
             stage.setTitle("New receipt");
             stage.setScene(new Scene(root, 525, 484));
-            stage.show();
+            stage.showAndWait();
+            updateFromRepository();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        receiptRepository = new ReceiptRepository();
-//        Parent root;
-//        try {
-//            root = FXMLLoader.load(getClass().getResource("loginScene.fxml"));
-//            Stage stage = new Stage();
-//            stage.setTitle("Can you kindly log in?");
-//            stage.setScene(new Scene(root, 799, 600));
-//            stage.show();
-//            imageView.getScene().getWindow().hide();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+    private void updateFromRepository() {
+        for (var e : receiptRepository.getAll()) {
+            //zrobic tak zeby sie nie dodawaly duplikaty
+            receiptList.getItems().add(e);
+        }
     }
 
-    public void showList() {
-        ObservableList<Receipt> receipts = FXCollections.observableArrayList(receiptRepository.getAll());
-        receiptList = new ListView<>(receipts);
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (receiptList != null) {
+            var lista = new ArrayList<String>(Arrays.asList("jeden", "dwa"));
+            var lista2 = new ArrayList<Purchase>(Arrays.asList(new Purchase("a", 1, 1), new Purchase("b", 2, 2)));
+            receiptRepository.add(new Receipt("Test", lista, lista2, "asd", LocalDate.now()));
+            updateFromRepository();
+        }
     }
 
     public void chooseScan() {
@@ -145,7 +132,8 @@ public class Controller implements Initializable {
         String scanPath = scanTextField.getText();
         LocalDate date = dateOfPurchaseDatePicker.getValue();
         try {
-            receiptRepository.add(ReceiptFactory.createReceipt(name, tags, purchases, scanPath, date));
+            var e = ReceiptFactory.createReceipt(name, tags, purchases, scanPath, date);
+            receiptRepository.add(e);
         } catch (IllegalArgumentException e) {
             popupError(e.getMessage());
         }
