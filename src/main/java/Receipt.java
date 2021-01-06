@@ -55,4 +55,14 @@ public class Receipt implements Serializable {
     public LocalDate getAddedDate() {
         return addedDate;
     }
+
+    @Override
+    public String toString() {
+        return ShopName + ", " + purchaseDate;
+    }
+
+    public String getInfo() {
+        return "Shop name: " + ShopName + "\n" + "Tags: " + tags.toString() + "\n" + "Purchases: " +
+                purchases.toString() + "\n" + "Purchase date: " + purchaseDate + "\n";
+    }
 }
