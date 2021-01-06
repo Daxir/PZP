@@ -146,7 +146,7 @@ public class Controller implements Initializable {
                 Image img = new Image(receiptList.getSelectionModel().getSelectedItem().getScan());
                 imageView.setImage(img);
             }  catch(IllegalArgumentException e) {
-                Image img = new Image("obrazek.png");
+                Image img = new Image("invalidFile.png");
                 imageView.setImage(img);
             }
             infoTextArea.setText(receiptList.getSelectionModel().getSelectedItem().getInfo());
