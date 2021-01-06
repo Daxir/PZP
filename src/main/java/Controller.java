@@ -14,10 +14,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -35,7 +39,7 @@ public class Controller implements Initializable {
     public TextField scanTextField;
     public DatePicker dateOfPurchaseDatePicker;
     public TextArea tagsTextArea;
-    public ListView<Receipt> purchasesListView;
+    public ListView<Purchase> purchasesListView;
     public Button addToPurchasesButton;
     public TextField productNameTextField;
     public TextField priceTextField;
@@ -58,6 +62,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        purchasesListView = new ListView<>();
 //        Parent root;
 //        try {
 //            root = FXMLLoader.load(getClass().getResource("loginScene.fxml"));
@@ -74,5 +79,32 @@ public class Controller implements Initializable {
     public void showList() {
         ObservableList<Receipt> receipts = FXCollections.observableArrayList(receiptRepository.getAll());
         receiptList = new ListView<>(receipts);
+    }
+
+    public void chooseScan() {
+        Stage stage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        try {
+            scanTextField.setText(fileChooser.showOpenDialog(stage).getAbsolutePath());
+            fileChooser.setTitle("Choose a file:");
+        } catch (RuntimeException e) {
+            scanTextField.setText("");
+        }
+    }
+
+//    public void doTheThing() {
+//        var theActualThing = dateOfPurchaseDatePicker.getValue();
+//    }
+
+    private List<String> tokenizeTags() {
+        return Arrays.asList(tagsTextArea.getText().split(","));
+    }
+
+    public void addToPurchases() {
+        var e = new Purchase(productNameTextField.getText(),
+                Double.parseDouble(priceTextField.getText()), Integer.parseInt(quantityTextField.getText()));
+        purchasesListView.getItems().add(e);
+        System.out.println(purchasesListView.getItems().toString());
+        purchasesListView.refresh();
     }
 }
