@@ -153,4 +153,11 @@ public class Controller implements Initializable {
             infoTextArea.setText(receiptList.getSelectionModel().getSelectedItem().getInfo());
         }
     }
+
+    public void deleteReceipt() {
+        receiptRepository.remove(receiptList.getSelectionModel().getSelectedItem());
+        receiptList.getItems().remove(receiptList.getSelectionModel().getSelectedItem());
+        infoTextArea.clear();
+    }
+
 }
