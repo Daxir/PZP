@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -64,7 +65,7 @@ public class Controller implements Initializable {
         if (receiptList != null) {
             var lista = new ArrayList<String>(Arrays.asList("jeden", "dwa"));
             var lista2 = new ArrayList<Purchase>(Arrays.asList(new Purchase("a", 1, 1), new Purchase("b", 2, 2)));
-            receiptRepository.add(new Receipt("Test", lista, lista2, "asd", LocalDate.now()));
+            receiptRepository.add(new Receipt("Test", lista, lista2, "obrazek.png", LocalDate.now()));
             updateFromRepository();
         }
     }
@@ -141,6 +142,12 @@ public class Controller implements Initializable {
 
     public void showInfo() {
         if (receiptList.getSelectionModel().getSelectedItem() != null) {
+            try {
+                Image img = new Image(receiptList.getSelectionModel().getSelectedItem().getScan());
+                imageView.setImage(img);
+            }  catch(IllegalArgumentException e) {
+                popupError(e.getMessage());
+            }
             infoTextArea.setText(receiptList.getSelectionModel().getSelectedItem().getInfo());
         }
     }
