@@ -138,4 +138,10 @@ public class Controller implements Initializable {
         }
         ((Stage) doneButton.getScene().getWindow()).close();
     }
+
+    public void showInfo() {
+        if (receiptList.getSelectionModel().getSelectedItem() != null) {
+            infoTextArea.setText(receiptList.getSelectionModel().getSelectedItem().getInfo());
+        }
+    }
 }
