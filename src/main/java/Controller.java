@@ -10,6 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -143,13 +145,20 @@ public class Controller implements Initializable {
     public void showInfo() {
         if (receiptList.getSelectionModel().getSelectedItem() != null) {
             try {
-                Image img = new Image(receiptList.getSelectionModel().getSelectedItem().getScan());
+                Image img = new Image(new FileInputStream(receiptList.getSelectionModel().getSelectedItem().getScan()));
                 imageView.setImage(img);
-            }  catch(IllegalArgumentException e) {
+            }  catch(FileNotFoundException e) {
                 Image img = new Image("invalidFile.png");
                 imageView.setImage(img);
             }
             infoTextArea.setText(receiptList.getSelectionModel().getSelectedItem().getInfo());
         }
     }
+
+    public void deleteReceipt() {
+        receiptRepository.remove(receiptList.getSelectionModel().getSelectedItem());
+        receiptList.getItems().remove(receiptList.getSelectionModel().getSelectedItem());
+        infoTextArea.clear();
+    }
+
 }
