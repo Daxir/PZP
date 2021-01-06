@@ -62,7 +62,6 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        purchasesListView = new ListView<>();
 //        Parent root;
 //        try {
 //            root = FXMLLoader.load(getClass().getResource("loginScene.fxml"));

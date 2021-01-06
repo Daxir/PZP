@@ -59,4 +59,9 @@ public class Purchase implements Serializable {
                 .append(quantity)
                 .toHashCode();
     }
+
+    @Override
+    public String toString() {
+        return getName() + " " + getPrice() + " x " + getQuantity();
+    }
 }
