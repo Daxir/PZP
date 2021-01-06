@@ -93,7 +93,9 @@ public class Receipt implements Serializable {
     }
 
     public String getInfo() {
-        return "Shop name: " + ShopName + "\n" + "Tags: " + tags.toString() + "\n" + "Purchases: " +
-                purchases.toString() + "\n" + "Purchase date: " + purchaseDate + "\n";
+        return "Shop name: " + ShopName + "\n" + "Tags: " + tags.toString().replaceAll("[\\[\\]]", "")
+                + "\n" + "Purchases:\n    " +
+                purchases.toString().replaceAll("[\\[\\]]", "").replace(", ", "\n    ")
+                + "\n" + "Purchase date: " + purchaseDate + "\n";
     }
 }
