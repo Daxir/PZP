@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReceiptRepository implements Subject, Serializable {
-    private List<Receipt> receipts;
+    private List<Receipt> receipts = new ArrayList<>();
     private final List<Observer> observers = new ArrayList<>();
 
     public List<Receipt> getRepository() {

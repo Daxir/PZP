@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +35,7 @@ public class Controller implements Initializable {
     public TextField receiptSearch;
     public TextField password;
     public Button loginButton;
-    private ReceiptRepository receiptRepository = new ReceiptRepository();
+    private ReceiptRepository receiptRepository;
     public ImageView imageView;
     public TextField shopName;
     public Button chooseScanButton;
@@ -45,7 +47,6 @@ public class Controller implements Initializable {
     public TextField productNameTextField;
     public TextField priceTextField;
     public TextField quantityTextField;
-    public Button addReceiptButton;
     public Button doneButton;
 
     public void openAddWindow() {
@@ -63,6 +64,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        receiptRepository = new ReceiptRepository();
 //        Parent root;
 //        try {
 //            root = FXMLLoader.load(getClass().getResource("loginScene.fxml"));
@@ -101,10 +103,52 @@ public class Controller implements Initializable {
     }
 
     public void addToPurchases() {
-        var e = new Purchase(productNameTextField.getText(),
-                Double.parseDouble(priceTextField.getText()), Integer.parseInt(quantityTextField.getText()));
-        purchasesListView.getItems().add(e);
-        System.out.println(purchasesListView.getItems().toString());
-        purchasesListView.refresh();
+        String name = productNameTextField.getText();
+        String price = priceTextField.getText();
+        String quantity = quantityTextField.getText();
+        if (name.length() == 0 || price.length() == 0 || quantity.length() == 0) {
+            popupError("At the very least one of the required text fields is empty!");
+            return;
+        }
+        try {
+            var e = new Purchase(name, Double.parseDouble(price), Integer.parseInt(quantity));
+            purchasesListView.getItems().add(e);
+        } catch (NumberFormatException e) {
+            popupError("Invalid input");
+        }
+
+    }
+
+    public void deletePurchaseFromPurchaseList() {
+        purchasesListView.getItems().remove(purchasesListView.getSelectionModel().getSelectedItem());
+    }
+
+    private void popupError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error:");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+//        stage.getIcons().add(new Image(getClass().getResource("faworytkaicon.png").toExternalForm()));
+        alert.setHeaderText(null);
+        alert.setResizable(false);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public void addReceipt() {
+        if (dateOfPurchaseDatePicker.getValue() == null) {
+            popupError("No date selected!");
+            return;
+        }
+        String name = shopName.getText();
+        List<String> tags = tokenizeTags();
+        List<Purchase> purchases = purchasesListView.getItems();
+        String scanPath = scanTextField.getText();
+        LocalDate date = dateOfPurchaseDatePicker.getValue();
+        try {
+            receiptRepository.add(ReceiptFactory.createReceipt(name, tags, purchases, scanPath, date));
+        } catch (IllegalArgumentException e) {
+            popupError(e.getMessage());
+        }
+        ((Stage) doneButton.getScene().getWindow()).close();
     }
 }

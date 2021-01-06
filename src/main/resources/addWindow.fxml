@@ -31,8 +31,7 @@
       <Separator layoutX="15.0" layoutY="173.0" prefHeight="6.0" prefWidth="496.0" />
       <Separator layoutX="15.0" layoutY="249.0" prefHeight="6.0" prefWidth="496.0" />
       <Button fx:id="addToPurchasesButton" alignment="CENTER" contentDisplay="CENTER" layoutX="245.0" layoutY="286.0" mnemonicParsing="false" onAction="#addToPurchases" prefHeight="62.0" prefWidth="111.0" text="&lt;--- add to Purchases" textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="addReceiptButton" layoutX="149.0" layoutY="405.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="103.0" text="Add receipt" />
-      <Button fx:id="doneButton" layoutX="274.0" layoutY="405.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="103.0" text="Done" />
-      <Button fx:id="deletePurchaseButton" layoutX="245.0" layoutY="359.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" text="Delete" />
+      <Button fx:id="doneButton" layoutX="211.0" layoutY="405.0" mnemonicParsing="false" onAction="#addReceipt" prefHeight="52.0" prefWidth="103.0" text="Done" />
+      <Button fx:id="deletePurchaseButton" layoutX="245.0" layoutY="359.0" mnemonicParsing="false" onAction="#deletePurchaseFromPurchaseList" prefHeight="25.0" prefWidth="111.0" text="Delete" />
    </children>
 </AnchorPane>
