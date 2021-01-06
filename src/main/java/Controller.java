@@ -2,11 +2,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -23,6 +20,21 @@ public class Controller {
     public Button loginButton;
     private ReceiptRepository receiptRepository = new ReceiptRepository();
     public ImageView imageView;
+    public TextField shopName;
+    public Button chooseScanButton;
+    public TextField scanTextField;
+    public DatePicker dateOfPurchaseDatePicker;
+    public TextArea tagsTextArea;
+    public ListView<Receipt> purchasesListView;
+    public Button addToPurchasesButton;
+    public TextField productNameTextField;
+    public TextField priceTextField;
+    public TextField quantityTextField;
+    public Button addReceiptButton;
+    public Button doneButton;
+
+
+
 
     public void zniknijbaton() {
         System.out.println("welcome");
