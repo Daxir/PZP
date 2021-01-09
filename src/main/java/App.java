@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -16,7 +17,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("loginScene"));
+        if (new File("repo").isFile()) {
+            scene = new Scene(loadFXML("loginScene"));
+        } else {
+            scene = new Scene(loadFXML("firstLaunchScene"));
+        }
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("Login");
