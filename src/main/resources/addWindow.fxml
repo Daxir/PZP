@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="484.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<AnchorPane prefHeight="484.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AddReceiptController">
    <children>
       <Label alignment="CENTER" layoutX="14.0" layoutY="18.0" prefHeight="17.0" prefWidth="90.0" text="Shop name:" />
       <TextField fx:id="shopName" layoutX="101.0" layoutY="14.0" prefHeight="25.0" prefWidth="414.0" />
