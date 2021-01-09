@@ -15,8 +15,8 @@ public class Global {
         }
     }
 
-    public static void read() {
-        try (FileInputStream fis = new FileInputStream("repo");
+    public static void read(String filepath) {
+        try (FileInputStream fis = new FileInputStream(filepath);
              ObjectInputStream ois = new ObjectInputStream(fis)) {
             hash = (byte[]) ois.readObject();
             receiptRepository = (ReceiptRepository) ois.readObject();

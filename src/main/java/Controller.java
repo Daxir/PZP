@@ -11,11 +11,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Controller implements Initializable {
@@ -24,7 +26,8 @@ public class Controller implements Initializable {
     public Button deleteButton;
     public ListView<Receipt> receiptList;
     public DatePicker searchDatePicker;
-    private ObservableList<Receipt> olist = FXCollections.observableArrayList(Global.receiptRepository.getAll());
+    public Button exportButton;
+    private final ObservableList<Receipt> olist = FXCollections.observableArrayList(Global.receiptRepository.getAll());
     public TextField receiptSearch;
     private final ReceiptRepository receiptRepository  = Global.receiptRepository;
     public ImageView imageView;
@@ -119,5 +122,27 @@ public class Controller implements Initializable {
 
     public void onSearchDatePickerChange() {
         receiptSearch.setText(searchDatePicker.getValue().toString());
+    }
+
+    private String chooseFile() {
+        Stage stage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        try {
+            fileChooser.setTitle("Choose a file:");
+            return (fileChooser.showSaveDialog(stage).getAbsolutePath());
+        } catch (RuntimeException e) {
+            return null;
+        }
+    }
+
+    public void exportDatabase() {
+        var filepath = chooseFile();
+        if (filepath != null && new File("repo").isFile()) {
+            try {
+                Files.copy(Paths.get("repo"), Paths.get(filepath));
+            } catch (IOException e) {
+                popupError("Could not export database!");
+            }
+        }
     }
 }

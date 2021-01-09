@@ -2,13 +2,14 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<?import javafx.scene.control.PasswordField?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
    <children>
       <Label fx:id="passwordTextField" alignment="CENTER" contentDisplay="CENTER" layoutX="341.0" layoutY="257.0" prefHeight="17.0" prefWidth="112.0" text="Login" textAlignment="CENTER" />
       <PasswordField fx:id="password" layoutX="325.0" layoutY="281.0" promptText="Password" />
       <Button fx:id="loginButton" layoutX="374.0" layoutY="318.0" mnemonicParsing="false" onAction="#login" text="Login" />
+      <Button fx:id="importButton" layoutX="674.0" layoutY="561.0" mnemonicParsing="false" onAction="#importDatabase" text="Import database..." />
    </children>
 </AnchorPane>
