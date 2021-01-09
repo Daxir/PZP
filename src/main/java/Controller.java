@@ -116,7 +116,7 @@ public class Controller implements Initializable {
         Global.budget.update();
         spentThisMonth.setText(Double.toString(Global.budget.getCurrentSpendings()));
         monthlyBudget.setText(Double.toString(Global.budget.getMonthlyBudget()));
-        remainingBudget.setText(Double.toString(Global.budget.getRemainingSpendings()));
+        remainingBudget.setText(String.format("%.2f", Global.budget.getRemainingSpendings()));
     }
 
     private void popupError(String message) {
