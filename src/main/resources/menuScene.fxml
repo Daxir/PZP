@@ -11,13 +11,12 @@
    <children>
       <ImageView fx:id="imageView" fitHeight="325.0" fitWidth="275.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       <ListView layoutX="14.0" layoutY="377.0" prefHeight="209.0" prefWidth="275.0" />
-      <Button layoutX="317.0" layoutY="373.0" mnemonicParsing="false" onAction="#openAddWindow" prefHeight="194.0" prefWidth="174.0" text="Add" />
-      <Button layoutX="581.0" layoutY="373.0" mnemonicParsing="false" prefHeight="194.0" prefWidth="174.0" text="Delete" />
       <TextField layoutX="14.0" layoutY="347.0" prefHeight="25.0" prefWidth="275.0" promptText="Search for a receipt" />
       <ListView fx:id="receiptList" layoutX="14.0" layoutY="377.0" onMouseClicked="#showInfo" prefHeight="209.0" prefWidth="275.0" />
-      <Button fx:id="addButton" layoutX="317.0" layoutY="373.0" mnemonicParsing="false" onAction="#openAddWindow" prefHeight="194.0" prefWidth="174.0" text="Add" />
-      <Button fx:id="deleteButton" layoutX="581.0" layoutY="373.0" mnemonicParsing="false" onAction="#deleteReceipt" prefHeight="194.0" prefWidth="174.0" text="Delete" />
+      <Button fx:id="addButton" layoutX="317.0" layoutY="478.0" mnemonicParsing="false" onAction="#openAddWindow" prefHeight="89.0" prefWidth="80.0" text="Add" />
+      <Button fx:id="deleteButton" layoutX="317.0" layoutY="377.0" mnemonicParsing="false" onAction="#deleteReceipt" prefHeight="89.0" prefWidth="80.0" text="Delete" />
       <TextField fx:id="receiptSearch" layoutX="14.0" layoutY="347.0" prefHeight="25.0" prefWidth="275.0" promptText="Search for a receipt" />
       <TextArea fx:id="infoTextArea" editable="false" layoutX="299.0" layoutY="14.0" prefHeight="325.0" prefWidth="486.0" />
+      <Button fx:id="changePasswordButton" layoutX="667.0" layoutY="555.0" mnemonicParsing="false" onAction="#openPasswordWindow" text="Change password..." />
    </children>
 </AnchorPane>

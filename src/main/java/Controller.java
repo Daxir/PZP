@@ -38,6 +38,20 @@ public class Controller implements Initializable {
     public TextField priceTextField;
     public TextField quantityTextField;
     public Button doneButton;
+    public Button changePasswordButton;
+
+    public void openPasswordWindow() {
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("passwordScene.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Change password");
+            stage.setScene(new Scene(root, 600, 400));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void openAddWindow() {
         Parent root;
