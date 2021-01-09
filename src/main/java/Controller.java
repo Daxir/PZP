@@ -170,6 +170,7 @@ public class Controller implements Initializable {
         var filepath = chooseFile();
         if (filepath != null && new File("repo").isFile()) {
             try {
+                Global.save();
                 Files.copy(Paths.get("repo"), Paths.get(filepath));
             } catch (IOException e) {
                 popupError("Could not export database!");

@@ -88,6 +88,6 @@ public class AddReceiptController {
     }
 
     private List<String> tokenizeTags() {
-        return Arrays.asList(tagsTextArea.getText().split(","));
+        return Arrays.asList(tagsTextArea.getText().replace(", ", ",").split(","));
     }
 }
