@@ -44,6 +44,9 @@ public class AddReceiptController {
         try {
             var e = new Purchase(name, Double.parseDouble(price), Integer.parseInt(quantity));
             purchasesListView.getItems().add(e);
+            priceTextField.setText("");
+            productNameTextField.setText("");
+            quantityTextField.setText("");
         } catch (NumberFormatException e) {
             popupError("Invalid input");
         }
