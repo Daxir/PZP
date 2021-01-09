@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -33,5 +34,9 @@
       <Button fx:id="addToPurchasesButton" alignment="CENTER" contentDisplay="CENTER" layoutX="245.0" layoutY="286.0" mnemonicParsing="false" onAction="#addToPurchases" prefHeight="62.0" prefWidth="111.0" text="&lt;--- add to Purchases" textAlignment="CENTER" wrapText="true" />
       <Button fx:id="doneButton" layoutX="211.0" layoutY="405.0" mnemonicParsing="false" onAction="#addReceipt" prefHeight="52.0" prefWidth="103.0" text="Done" />
       <Button fx:id="deletePurchaseButton" layoutX="245.0" layoutY="359.0" mnemonicParsing="false" onAction="#deletePurchaseFromPurchaseList" prefHeight="25.0" prefWidth="111.0" text="Delete" />
+      <Label fx:id="detectedPriceLabel" layoutX="20.0" layoutY="405.0" text="Detected price: " />
+      <CheckBox fx:id="ocrToggle" layoutX="402.0" layoutY="63.0" mnemonicParsing="false" onAction="#toggleOCR" selected="true" text="Enable OCR" />
+      <Label fx:id="totalPriceLabel" layoutX="20.0" layoutY="388.0" text="Total price:" />
+      <Label fx:id="remainingPriceLabel" layoutX="20.0" layoutY="423.0" text="Remaining:" />
    </children>
 </AnchorPane>

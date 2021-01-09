@@ -1,11 +1,15 @@
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class AddReceiptController {
 
@@ -14,13 +18,60 @@ public class AddReceiptController {
     public TextField scanTextField;
     public DatePicker dateOfPurchaseDatePicker;
     public TextArea tagsTextArea;
-    public ListView purchasesListView;
+    public ListView<Purchase> purchasesListView;
     public TextField productNameTextField;
     public TextField priceTextField;
     public TextField quantityTextField;
     public Button addToPurchasesButton;
     public Button doneButton;
     public Button deletePurchaseButton;
+    public Label detectedPriceLabel;
+    public CheckBox ocrToggle;
+    public Label totalPriceLabel;
+    public Label remainingPriceLabel;
+    private double sum;
+    private double parsedTotal;
+
+    public void toggleOCR() {
+        if (!ocrToggle.isSelected()) {
+            detectedPriceLabel.setText("");
+            remainingPriceLabel.setText("");
+        } else {
+            detectedPriceLabel.setText("Detected price:");
+            remainingPriceLabel.setText("Remaining:");
+        }
+    }
+
+    private void updateTotalLabel() {
+        if (purchasesListView.getItems() != null) {
+            double sum = 0;
+            for (var x : purchasesListView.getItems()) {
+                sum += x.getTotalPurchaseValue();
+            }
+            totalPriceLabel.setText("Total price: " + sum);
+            this.sum = sum;
+            if (ocrToggle.isSelected()) {
+                remainingPriceLabel.setText("Remaining: " + String.format("%.2f", parsedTotal - this.sum));
+            }
+        } else {
+            totalPriceLabel.setText("Total price: 0");
+        }
+    }
+
+    private String readPriceFromImage() {
+        String[] lines = OCR.doOCR(new File(scanTextField.getText())).split("\n");
+        for (String s : lines) {
+            if (s.toLowerCase().contains("suma")) {
+                try {
+                    this.parsedTotal = Double.parseDouble(s.replaceAll("[^\\d.]", "").trim());
+                } catch (NumberFormatException e) {
+                    return  "Could not detect total price";
+                }
+                return "Detected price: " + parsedTotal;
+            }
+        }
+        return "Could not detect total price";
+    }
 
     public void chooseScan() {
         Stage stage = new Stage();
@@ -28,6 +79,9 @@ public class AddReceiptController {
         try {
             scanTextField.setText(fileChooser.showOpenDialog(stage).getAbsolutePath());
             fileChooser.setTitle("Choose a file:");
+            if (ocrToggle.isSelected()) {
+                detectedPriceLabel.setText(readPriceFromImage());
+            }
         } catch (RuntimeException e) {
             scanTextField.setText("");
         }
@@ -44,6 +98,7 @@ public class AddReceiptController {
         try {
             var e = new Purchase(name, Double.parseDouble(price), Integer.parseInt(quantity));
             purchasesListView.getItems().add(e);
+            updateTotalLabel();
             priceTextField.setText("");
             productNameTextField.setText("");
             quantityTextField.setText("");
@@ -55,6 +110,7 @@ public class AddReceiptController {
 
     public void deletePurchaseFromPurchaseList() {
         purchasesListView.getItems().remove(purchasesListView.getSelectionModel().getSelectedItem());
+        updateTotalLabel();
     }
 
     private void popupError(String message) {
