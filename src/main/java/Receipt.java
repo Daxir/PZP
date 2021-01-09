@@ -1,15 +1,17 @@
+import javafx.beans.property.SimpleStringProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
-import java.io.Serializable;
+import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Receipt implements Serializable {
-    private final String ShopName;
-    private final List<String> tags;
+    transient private SimpleStringProperty ShopName = new SimpleStringProperty();
+    transient private List<SimpleStringProperty> tags;
     private final List<Purchase> purchases;
     private final String scan;
     //dodac datę zakupu
@@ -20,8 +22,11 @@ public class Receipt implements Serializable {
         if (shopName.length() == 0) {
             throw new IllegalArgumentException("Invalid shop name!");
         }
-        ShopName = shopName;
-        this.tags = tags;
+        ShopName.set(shopName);
+        this.tags = new ArrayList<>();
+        for (String s : tags) {
+            this.tags.add(new SimpleStringProperty(s));
+        }
         this.purchases = purchases;
         //dodac wyjątek sprawdzający istnienie pliku
         this.scan = scan;
@@ -38,11 +43,15 @@ public class Receipt implements Serializable {
     }
 
     public String getShopName() {
-        return ShopName;
+        return ShopName.get();
     }
 
     public List<String> getTags() {
-        return tags;
+        List<String> list = new ArrayList<>();
+        for (var s : tags) {
+            list.add(s.get());
+        }
+        return list;
     }
 
     public List<Purchase> getPurchases() {
@@ -91,13 +100,31 @@ public class Receipt implements Serializable {
 
     @Override
     public String toString() {
-        return ShopName + ", " + purchaseDate;
+        return getShopName() + ", " + getPurchaseDate();
     }
 
     public String getInfo() {
-        return "Shop name: " + ShopName + "\n" + "Tags: " + tags.toString().replaceAll("[\\[\\]]", "")
+        return "Shop name: " + getShopName() + "\n" + "Tags: " + getTags().toString().replaceAll("[\\[\\]]", "")
                 + "\n" + "Purchases:\n    " +
-                purchases.toString().replaceAll("[\\[\\]]", "").replace(", ", "\n    ")
-                + "\n" + "Purchase date: " + purchaseDate + "\n";
+                getPurchases().toString().replaceAll("[\\[\\]]", "").replace(", ", "\n    ")
+                + "\n" + "Purchase date: " + getPurchaseDate() + "\n";
+    }
+
+    @Serial
+    private void writeObject(ObjectOutputStream s) throws IOException {
+        s.defaultWriteObject();
+        s.writeUTF(ShopName.getValueSafe());
+        s.writeObject(getTags());
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
+        s.defaultReadObject();
+        ShopName = new SimpleStringProperty(s.readUTF());
+        var list = (ArrayList<String>) s.readObject();
+        tags = new ArrayList<>();
+        for (String x : list) {
+            tags.add(new SimpleStringProperty(x));
+        }
     }
 }
