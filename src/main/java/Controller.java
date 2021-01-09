@@ -79,9 +79,6 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (receiptList != null) {
-            var lista = new ArrayList<String>(Arrays.asList("jeden", "dwa"));
-            var lista2 = new ArrayList<Purchase>(Arrays.asList(new Purchase("a", 1, 1), new Purchase("b", 2, 2)));
-            receiptRepository.add(new Receipt("Test", lista, lista2, "obrazek.png", LocalDate.now()));
             updateFromRepository();
         }
     }
