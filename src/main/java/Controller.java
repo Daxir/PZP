@@ -10,6 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,6 +23,7 @@ public class Controller implements Initializable {
     public Button addButton;
     public Button deleteButton;
     public ListView<Receipt> receiptList;
+    public DatePicker searchDatePicker;
     private ObservableList<Receipt> olist = FXCollections.observableArrayList(Global.receiptRepository.getAll());
     public TextField receiptSearch;
     private final ReceiptRepository receiptRepository  = Global.receiptRepository;
@@ -77,7 +79,7 @@ public class Controller implements Initializable {
                             return true;
                         }
                     }
-                    return false;
+                    return r.getPurchaseDate().toString().contains(newValue.trim());
                 }
                 return true;
             });
@@ -115,4 +117,7 @@ public class Controller implements Initializable {
         imageView.setImage(null);
     }
 
+    public void onSearchDatePickerChange() {
+        receiptSearch.setText(searchDatePicker.getValue().toString());
+    }
 }
