@@ -24,13 +24,8 @@ public class App extends Application {
         }
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Login");
+        stage.setTitle("Receipts");
         stage.show();
-//        scene = new Scene(loadFXML("menuScene"));
-//        stage.setScene(scene);
-//        stage.setResizable(false);
-//        stage.setTitle("Receipts");
-//        stage.show();
     }
 
     static void setRoot(String fxml) throws IOException {

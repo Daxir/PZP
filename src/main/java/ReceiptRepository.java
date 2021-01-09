@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +13,15 @@ public class ReceiptRepository implements Subject, Serializable {
     }
 
     public boolean add(Receipt r){
-        return receipts.add(r);
+        receipts.add(r);
+        notifyObservers();
+        return true;
     }
 
     public boolean remove(Receipt r) {
-        return receipts.remove(r);
+        receipts.remove(r);
+        notifyObservers();
+        return true;
     }
 
     public Receipt get(int index) {
@@ -36,9 +41,9 @@ public class ReceiptRepository implements Subject, Serializable {
         return null;
     }
 
-    public Receipt find(LocalDate date) {
+    public Receipt find(Month month) {
         for (Receipt r : receipts) {
-            if (r.getPurchaseDate().equals(date)) {
+            if (r.getPurchaseDate().getMonth().equals(month)) {
                 return r;
             }
         }
@@ -59,10 +64,10 @@ public class ReceiptRepository implements Subject, Serializable {
         }
     }
 
-    public List<Receipt> findAll(LocalDate date) {
+    public List<Receipt> findAll(Month month) {
         List<Receipt> found = new ArrayList<>();
         for (Receipt r : receipts) {
-            if ( r.getPurchaseDate().equals(date)) {
+            if ( r.getPurchaseDate().getMonth().equals(month)) {
                 found.add(r);
             }
         }

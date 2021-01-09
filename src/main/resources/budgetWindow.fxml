@@ -5,11 +5,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="112.0" prefWidth="272.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BudgetWindow">
+<AnchorPane prefHeight="112.0" prefWidth="272.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EditBudgetController">
    <children>
-      <TextField layoutX="62.0" layoutY="41.0" />
+      <TextField fx:id="monthlySpendingsText" layoutX="62.0" layoutY="41.0" />
       <Label layoutX="18.0" layoutY="14.0" text="How much would you like to spend monthly:" />
-      <Button fx:id="applyNewBudget" layoutX="111.0" layoutY="73.0" mnemonicParsing="false" text="Apply" />
+      <Button fx:id="applyNewBudget" layoutX="111.0" layoutY="73.0" mnemonicParsing="false" onAction="#apply" text="Apply" />
    </children>
 </AnchorPane>

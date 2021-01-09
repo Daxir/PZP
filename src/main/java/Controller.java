@@ -18,6 +18,8 @@ import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.*;
 
 public class Controller implements Initializable {
@@ -32,9 +34,9 @@ public class Controller implements Initializable {
     private final ReceiptRepository receiptRepository  = Global.receiptRepository;
     public ImageView imageView;
     public Button changePasswordButton;
-    public Label spentThisMonth = new Label();
-    public Label monthlyBudget = new Label();
-    public Label totalSpending = new Label();
+    public Label spentThisMonth;
+    public Label monthlyBudget;
+    public Label remainingBudget;
 
     public void openPasswordWindow() {
         Parent root;
@@ -58,6 +60,7 @@ public class Controller implements Initializable {
             stage.setScene(new Scene(root, 525, 484));
             stage.showAndWait();
             updateFromRepository();
+            updateLabels();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,8 +72,10 @@ public class Controller implements Initializable {
             root = FXMLLoader.load(getClass().getResource("budgetWindow.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Edit budget");
+            stage.setResizable(false);
             stage.setScene(new Scene(root, 272, 112));
             stage.showAndWait();
+            updateLabels();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -87,7 +92,9 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Global.budget.updateMonth();
         updateFromRepository();
+        updateLabels();
         FilteredList<Receipt> flReceipt = new FilteredList<>(olist, r -> true);
         receiptList.setItems(flReceipt);
         receiptSearch.textProperty().addListener((obs, oldValue, newValue) -> {
@@ -103,6 +110,13 @@ public class Controller implements Initializable {
                 return true;
             });
         });
+    }
+
+    private void updateLabels() {
+        Global.budget.update();
+        spentThisMonth.setText(Double.toString(Global.budget.getCurrentSpendings()));
+        monthlyBudget.setText(Double.toString(Global.budget.getMonthlyBudget()));
+        remainingBudget.setText(Double.toString(Global.budget.getRemainingSpendings()));
     }
 
     private void popupError(String message) {
@@ -134,6 +148,7 @@ public class Controller implements Initializable {
         olist.remove(receiptList.getSelectionModel().getSelectedItem());
         infoTextArea.clear();
         imageView.setImage(null);
+        updateLabels();
     }
 
     public void onSearchDatePickerChange() {

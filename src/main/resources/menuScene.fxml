@@ -28,9 +28,9 @@
       </Label>
       <Label fx:id="monthlyBudget" layoutX="460.0" layoutY="470.0" text="Label" />
       <Button fx:id="editBudgetButton" layoutX="667.0" layoutY="491.0" mnemonicParsing="false" onAction="#openEditBudgetWindow" prefWidth="118.0" text="Edit budget..." />
-      <Label fx:id="totalSpending" layoutX="460.0" layoutY="526.0" text="Label" />
+      <Label fx:id="remainingBudget" layoutX="460.0" layoutY="526.0" text="Label" />
       <Label layoutX="460.0" layoutY="389.0" prefHeight="17.0" prefWidth="118.0" text="Spent this month:" />
       <Label layoutX="460.0" layoutY="451.0" prefHeight="17.0" prefWidth="118.0" text="Your monthly budget:" wrapText="true" />
-      <Label layoutX="460.0" layoutY="508.0" prefHeight="17.0" prefWidth="118.0" text="Total spendings:" />
+      <Label layoutX="460.0" layoutY="508.0" prefHeight="17.0" prefWidth="118.0" text="Remaining budget:" />
    </children>
 </AnchorPane>
