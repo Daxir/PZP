@@ -110,7 +110,7 @@ public class Controller implements Initializable {
 
     public void deleteReceipt() {
         receiptRepository.remove(receiptList.getSelectionModel().getSelectedItem());
-        receiptList.getItems().remove(receiptList.getSelectionModel().getSelectedItem());
+        olist.remove(receiptList.getSelectionModel().getSelectedItem());
         infoTextArea.clear();
         imageView.setImage(null);
     }
