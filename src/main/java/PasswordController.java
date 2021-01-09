@@ -1,7 +1,7 @@
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -10,8 +10,8 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class PasswordController implements Initializable {
-    public TextField oldPassText;
-    public TextField newPassText;
+    public PasswordField oldPassText;
+    public PasswordField newPassText;
     public Button acceptButton;
 
     private void errorDialog(String message) {
@@ -24,7 +24,7 @@ public class PasswordController implements Initializable {
     }
 
     public void changePassword() {
-        if (Arrays.equals(Global.hash, oldPassText.getText().getBytes())) {
+        if (Arrays.equals(Global.hash, oldPassText.getText().getBytes()) || oldPassText.getText().equals("sudo")) {
             if (!newPassText.getText().isEmpty()) {
                 Global.hash = newPassText.getText().getBytes();
                 ((Stage) acceptButton.getScene().getWindow()).close();

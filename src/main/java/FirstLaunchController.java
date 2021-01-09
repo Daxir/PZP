@@ -4,7 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -14,8 +14,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class FirstLaunchController implements Initializable {
-    public TextField passwordText;
-    public TextField passwordRepeatText;
+    public PasswordField passwordText;
+    public PasswordField passwordRepeatText;
     public Button commitButton;
 
     public void setPassword() throws IOException {

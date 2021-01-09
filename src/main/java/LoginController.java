@@ -2,10 +2,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -16,7 +13,7 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
     public Label passwordTextField;
-    public TextField password;
+    public PasswordField password;
     public Button loginButton;
 
     public void login() throws IOException {
