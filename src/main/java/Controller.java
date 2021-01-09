@@ -1,3 +1,6 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -19,6 +22,7 @@ public class Controller implements Initializable {
     public Button addButton;
     public Button deleteButton;
     public ListView<Receipt> receiptList;
+    private ObservableList<Receipt> olist = FXCollections.observableArrayList(Global.receiptRepository.getAll());
     public TextField receiptSearch;
     private final ReceiptRepository receiptRepository  = Global.receiptRepository;
     public ImageView imageView;
@@ -53,18 +57,31 @@ public class Controller implements Initializable {
 
     private void updateFromRepository() {
         for (var e : receiptRepository.getAll()) {
-            var set = new HashSet<>(receiptList.getItems());
+            var set = new HashSet<>(olist);
             if (set.add(e)) {
-                receiptList.getItems().add(e);
+                olist.add(e);
             }
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (receiptList != null) {
-            updateFromRepository();
-        }
+        updateFromRepository();
+        FilteredList<Receipt> flReceipt = new FilteredList<>(olist, r -> true);
+        receiptList.setItems(flReceipt);
+        receiptSearch.textProperty().addListener((obs, oldValue, newValue) -> {
+            flReceipt.setPredicate(r -> {
+                if (!r.getShopName().toLowerCase().contains(newValue.toLowerCase().trim())) {
+                    for (var x : r.getTags()) {
+                        if (x.toLowerCase().contains(newValue.toLowerCase().trim())) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                return true;
+            });
+        });
     }
 
     private void popupError(String message) {
