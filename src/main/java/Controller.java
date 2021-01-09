@@ -130,7 +130,7 @@ public class Controller implements Initializable {
         }
         String name = shopName.getText();
         List<String> tags = tokenizeTags();
-        List<Purchase> purchases = purchasesListView.getItems();
+        List<Purchase> purchases = new ArrayList<>(purchasesListView.getItems());
         String scanPath = scanTextField.getText();
         LocalDate date = dateOfPurchaseDatePicker.getValue();
         try {
