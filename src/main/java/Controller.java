@@ -32,6 +32,9 @@ public class Controller implements Initializable {
     private final ReceiptRepository receiptRepository  = Global.receiptRepository;
     public ImageView imageView;
     public Button changePasswordButton;
+    public Label spentThisMonth = new Label();
+    public Label monthlyBudget = new Label();
+    public Label totalSpending = new Label();
 
     public void openPasswordWindow() {
         Parent root;
@@ -55,6 +58,19 @@ public class Controller implements Initializable {
             stage.setScene(new Scene(root, 525, 484));
             stage.showAndWait();
             updateFromRepository();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openEditBudgetWindow() {
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("budgetWindow.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Edit budget");
+            stage.setScene(new Scene(root, 272, 112));
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }

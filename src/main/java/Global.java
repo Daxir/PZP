@@ -1,3 +1,5 @@
+import javafx.scene.control.Label;
+
 import java.io.*;
 
 public class Global {
