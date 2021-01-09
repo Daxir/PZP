@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -38,6 +39,12 @@ public class PasswordController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                acceptButton.requestFocus();
+            }
+        });
         acceptButton.getParent().addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
             if (ev.getCode() == KeyCode.ENTER) {
                 acceptButton.fire();
