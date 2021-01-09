@@ -67,6 +67,7 @@ public class AddReceiptController {
                 } catch (NumberFormatException e) {
                     return  "Could not detect total price";
                 }
+                updateTotalLabel();
                 return "Detected price: " + parsedTotal;
             }
         }
