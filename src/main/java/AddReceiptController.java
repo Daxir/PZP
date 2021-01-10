@@ -57,11 +57,15 @@ public class AddReceiptController {
     private String readPriceFromImage() {
         String[] lines = OCR.doOCR(new File(scanTextField.getText())).split("\n");
         for (String s : lines) {
-            if (s.toLowerCase().contains("suma")) {
+            System.out.println(s);
+            if ((s.toLowerCase().replace("ą", "a").contains("suma")
+                    && !s.toLowerCase().contains("ptu")) || s.toLowerCase().contains("pln")) {
                 try {
-                    this.parsedTotal = Double.parseDouble(s.replaceAll("[^\\d.]", "").trim());
+                    this.parsedTotal = Double.parseDouble(s.replace(",", ".")
+                            .replaceAll("[^\\d.]", "")
+                            .trim());
                 } catch (NumberFormatException e) {
-                    return  "Could not detect total price";
+                    continue;
                 }
                 updateTotalLabel();
                 return "Detected price: " + parsedTotal;
