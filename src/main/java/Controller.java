@@ -1,6 +1,7 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -10,6 +11,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -109,6 +112,20 @@ public class Controller implements Initializable {
                 }
                 return true;
             });
+        });
+        receiptList.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 1) {
+                showInfo();
+            } else if (mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 2) {
+                Global.tempReceipt = receiptList.getSelectionModel()
+                        .getSelectedItem();
+                openAddWindow();
+                if (Global.editedFlag) {
+                    deleteReceipt();
+                    Global.editedFlag = false;
+                }
+                Global.tempReceipt = null;
+            }
         });
     }
 

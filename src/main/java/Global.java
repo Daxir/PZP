@@ -6,6 +6,8 @@ public class Global {
     public static ReceiptRepository receiptRepository = new ReceiptRepository();
     public static byte[] hash = null;
     public static Budget budget = new Budget(receiptRepository);
+    public static Receipt tempReceipt;
+    public static boolean editedFlag = false;
 
     public static void save() {
         try (FileOutputStream fos = new FileOutputStream("repo");

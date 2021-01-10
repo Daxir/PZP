@@ -1,13 +1,17 @@
+import javafx.collections.FXCollections;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class AddReceiptController {
+public class AddReceiptController implements Initializable {
 
     public TextField shopName;
     public Button chooseScanButton;
@@ -28,7 +32,31 @@ public class AddReceiptController {
     private double sum;
     private double parsedTotal;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (Global.tempReceipt != null) {
+            loadFromReceipt();
+            doneButton.setOnAction(e -> {
+                addReceipt();
+                Global.editedFlag = true;
+                ((Stage) doneButton.getScene().getWindow()).close();
+            });
+        }
+    }
+
+    private void loadFromReceipt() {
+        var r = Global.tempReceipt;
+        toggleOCR();
+        shopName.setText(r.getShopName());
+        scanTextField.setText(r.getScan());
+        dateOfPurchaseDatePicker.setValue(r.getPurchaseDate());
+        tagsTextArea.setText(String.join(", ", r.getTags()));
+        purchasesListView.setItems(FXCollections.observableList(r.getPurchases()));
+        updateTotalLabel();
+    }
+
     public void toggleOCR() {
+
         if (!ocrToggle.isSelected()) {
             detectedPriceLabel.setText("");
             remainingPriceLabel.setText("");
@@ -131,10 +159,15 @@ public class AddReceiptController {
             return;
         }
         String name = shopName.getText();
+        System.out.println(name);
         List<String> tags = tokenizeTags();
+        System.out.println(tags.toString());
         List<Purchase> purchases = new ArrayList<>(purchasesListView.getItems());
+        System.out.println(purchases.toString());
         String scanPath = scanTextField.getText();
+        System.out.println(scanPath);
         LocalDate date = dateOfPurchaseDatePicker.getValue();
+        System.out.println(date);
         try {
             var e = ReceiptFactory.createReceipt(name, tags, purchases, scanPath, date);
             Global.receiptRepository.add(e);
