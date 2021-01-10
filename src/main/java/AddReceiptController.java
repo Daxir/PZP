@@ -159,15 +159,10 @@ public class AddReceiptController implements Initializable {
             return;
         }
         String name = shopName.getText();
-        System.out.println(name);
         List<String> tags = tokenizeTags();
-        System.out.println(tags.toString());
         List<Purchase> purchases = new ArrayList<>(purchasesListView.getItems());
-        System.out.println(purchases.toString());
         String scanPath = scanTextField.getText();
-        System.out.println(scanPath);
         LocalDate date = dateOfPurchaseDatePicker.getValue();
-        System.out.println(date);
         try {
             var e = ReceiptFactory.createReceipt(name, tags, purchases, scanPath, date);
             Global.receiptRepository.add(e);
